@@ -16,7 +16,7 @@ API_KEY = os.getenv('API_KEY')
 if API_KEY == None:
     raise EnvironmentError('API_KEY not set')
 # 顯著有感地震報告資料-顯著有感地震報告
-URL = 'https://opendata.cwa.gov.tw/api//v1/rest/datastore/E-A0015-001'
+URL = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0015-001'
 
 
 class Earthquake(BaseModel):
