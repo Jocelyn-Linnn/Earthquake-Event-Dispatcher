@@ -180,7 +180,7 @@ export default function Simulation() {
   return (
     <div className="min-h-screen bg-zinc-900 text-white p-6 space-y-8">
       <a
-        href="http://34.81.36.176/grafana/d/0a4725e4-1260-4f2f-826c-d1ae7ad637f9/earthquake-event-dispatcher?orgId=1&from=now-6h&to=now&timezone=browser&var-region=$__all" className="hover:underline">
+        href="/grafana/d/adn5lx7" className="hover:underline">>
         &lt;&lt; Back To Dashboard
       </a>
 
