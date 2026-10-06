@@ -48,7 +48,8 @@ def intensity_to_float(intensity: str) -> float:
 def parse_earthquake(data) -> Earthquake:
     parsed_earthquake = Earthquake(
         earthquake_id=data['EarthquakeNo'],
-        timestamp=data['EarthquakeInfo']['OriginTime'],
+        timestamp=datetime.fromisoformat(
+            data['EarthquakeInfo']['OriginTime']).strftime('%Y-%m-%d %H:%M:%S'),
         magnitude=data['EarthquakeInfo']['EarthquakeMagnitude']['MagnitudeValue'],
         center=data['EarthquakeInfo']['Epicenter']['Location'],
         depth=data['EarthquakeInfo']['FocalDepth'],
@@ -70,10 +71,11 @@ def parse_earthquake(data) -> Earthquake:
 
     # Assign each found area
     for area in data['Intensity']['ShakingArea']:
-        county_name = area['CountyName']
-        if county_name in areaNameMapper.keys():
-            parsed_earthquake.intensity[areaNameMapper[county_name]
-                                        ] = intensity_to_float(area['AreaIntensity'])
+        # 氣象署會把震度相同的縣市合併成「臺南市、嘉義縣」這種格式
+        for county_name in area['CountyName'].split('、'):
+            if county_name in areaNameMapper.keys():
+                parsed_earthquake.intensity[areaNameMapper[county_name]
+                                            ] = intensity_to_float(area['AreaIntensity'])
 
     return parsed_earthquake
 
