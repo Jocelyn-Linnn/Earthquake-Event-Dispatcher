@@ -86,6 +86,10 @@ services:
       - app_network
     env_file:
       - .env
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/earthquake-event-dispatcher.json
 
   mysql:
     image: mysql:8.0
