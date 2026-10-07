@@ -47,3 +47,11 @@ CREATE TABLE IF NOT EXISTS settings (
     name VARCHAR(255) PRIMARY KEY,
     value VARCHAR(255)
 );
+
+
+-- === Grafana 唯讀帳號（只在資料庫第一次初始化時執行）===
+CREATE USER IF NOT EXISTS 'grafana'@'%' IDENTIFIED BY 'grafana_ro';
+SET @grant_sql = CONCAT('GRANT SELECT ON `', DATABASE(), '`.* TO ''grafana''@''%''');
+PREPARE grant_stmt FROM @grant_sql;
+EXECUTE grant_stmt;
+DEALLOCATE PREPARE grant_stmt;
